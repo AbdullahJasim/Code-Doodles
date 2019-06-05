@@ -6,6 +6,7 @@ StateMachine::StateMachine() {
 
 StateMachine::~StateMachine() {
 	delete m_State;
+	m_State = nullptr;
 }
 
 void StateMachine::Open() {

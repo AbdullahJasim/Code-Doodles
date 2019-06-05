@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 //notice the order of inclusions
 #include "LoopRecursionTestOne.h"
@@ -52,12 +53,44 @@ void TestForStateMachine() {
 	}
 }
 
-int main() {
-	int x = 15;
+template <typename T>
+void TestForTemplates(T param) {
+	std::cout << "Template type passed is " << typeid(T).name() << std::endl;
+}
 
-	//cout << TestForOdd(x);
+//exception in constructor test
+void TestForCtorException() {
+	class Example {
+	public:
+		Example() { throw "This ctor cannot be called!"; };
+		Example(int x) { m_Value = x; };
+
+		~Example() { std::cout << "This dtor will not be called when the ctor throws an exception!" << std::endl; };
+	private:
+		int m_Value;
+	};
+
+	try {
+		Example ex;
+	} catch (const char* error) {
+		std::cout << error;
+	}
+}
+
+//--------------------------------------------------------------------//
+//----------------------------------MAIN------------------------------//
+//--------------------------------------------------------------------//
+int main() {
+	//cout << TestForOdd(15);
+
 	//TestClassInsideFunction(23);
-	TestForStateMachine();
+
+	//TestForStateMachine();
+
+	//std::string test = "Hello World";
+	//TestForTemplates(test);
+
+	TestForCtorException();
 
 	std::cin.get();
 }
